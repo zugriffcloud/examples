@@ -1,0 +1,132 @@
+name: 'zugriff: Deploy'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/**
+
+jobs:
+  deploy:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            astro:
+              - './apps/example-astro/**'
+            hono:
+              - './apps/example-hono/**'
+            nextjs:
+              - './apps/example-nextjs/**'
+            nuxt:
+              - './apps/example-nuxt/**'
+            remix:
+              - './apps/example-remix/**'
+            solid:
+              - './apps/example-solid/**'
+            sveltekit:
+              - './apps/example-sveltekit/**'
+            static:
+              - './apps/example-static/**'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - name: Extract Most Recent Commit Message
+        run: |
+          echo "COMMIT_MESSAGE=$(git log --pretty=oneline --abbrev-commit | head -n 1 | cut -c 1-128)" >> $GITHUB_ENV
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.astro == 'true'
+        with:
+          cwd: ./apps/example-astro
+          name: (astro) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            astro
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.hono == 'true'
+        with:
+          cwd: ./apps/example-hono
+          name: (hono) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            hono
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.nextjs == 'true'
+        with:
+          cwd: ./apps/example-nextjs
+          name: (nextjs) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            nextjs
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.nuxt == 'true'
+        with:
+          cwd: ./apps/example-nuxt
+          name: (nuxt) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            nuxt
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.remix == 'true'
+        with:
+          cwd: ./apps/example-remix
+          name: (remix) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            remix
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.solid == 'true'
+        with:
+          cwd: ./apps/example-solid
+          name: (solid) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            solid
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.sveltekit == 'true'
+        with:
+          cwd: ./apps/example-sveltekit
+          name: (sveltekit) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          promotions: |
+            sveltekit
+
+      - uses: zugriffcloud/action-deploy@latest
+        if: steps.filter.outputs.static == 'true'
+        with:
+          name: (static) ${{ env.COMMIT_MESSAGE }}
+          deploymentToken: ${{ secrets.ZUGRIFF_TOKEN }}
+          assets: |
+            ./apps/example-static
+          promotions: |
+            static

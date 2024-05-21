@@ -1,0 +1,25 @@
+{
+  "name": "example-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "zugriff:build": "pnpx @cloudflare/next-on-pages && pnpx zugriff -y pack",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.11.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "zugriff": "^1.0.2"
+  }
+}
