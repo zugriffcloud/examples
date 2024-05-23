@@ -3,10 +3,11 @@
     "dev": "pnpx zugriff run --pack --watch",
     "build": "pnpx zugriff -y pack"
   },
+  "type": "module",
   "dependencies": {
-    "hono": "^4.3.9"
+    "hono": "^4.3.10"
   },
   "devDependencies": {
-    "zugriff": "^1.0.2"
+    "zugriff": "^1.0.4"
   }
 }

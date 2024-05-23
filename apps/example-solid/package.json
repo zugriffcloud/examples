@@ -10,7 +10,7 @@
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.13.3",
-    "@solidjs/start": "^1.0.0-rc.1",
+    "@solidjs/start": "^1.0.0",
     "solid-js": "^1.8.17",
     "vinxi": "^0.3.11"
   },
@@ -18,6 +18,6 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@zugriff/preset-nitro": "^1.0.1"
+    "@zugriff/preset-nitro": "^1.0.2"
   }
 }
