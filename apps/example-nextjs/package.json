@@ -10,15 +10,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.3",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "15.1.6",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.11.3",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@cloudflare/next-on-pages": "^1.13.7",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "^5",
     "zugriff": "^1.0.6"
   }
