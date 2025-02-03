@@ -15,6 +15,6 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@zugriff/preset-nitro": "^1.0.2"
+    "@zugriff/preset-nitro": "^1.0.3"
   }
 }

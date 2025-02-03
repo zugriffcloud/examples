@@ -5,9 +5,9 @@
   },
   "type": "module",
   "dependencies": {
-    "hono": "^4.3.10"
+    "hono": "^4.6.20"
   },
   "devDependencies": {
-    "zugriff": "^1.0.4"
+    "zugriff": "^1.0.6"
   }
 }
