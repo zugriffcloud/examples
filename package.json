@@ -8,24 +8,15 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@types/node": "^20.12.12",
-    "@typescript-eslint/eslint-plugin": "^7.10.0",
-    "commitizen": "^4.3.0",
-    "commitlint": "^19.3.0",
-    "eslint": "^9.3.0",
-    "husky": "^9.0.11",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5"
-  },
-  "pnpm": {
-    "overrides": {
-      "semver@>=7.0.0 <7.5.2": ">=7.5.2",
-      "debug@>=4.0.0 <4.3.1": ">=4.3.1",
-      "tar@<6.2.1": ">=6.2.1",
-      "undici@<5.28.4": ">=5.28.4",
-      "undici@<=5.28.2": ">=5.28.3"
-    }
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@types/node": "^22.14.1",
+    "@typescript-eslint/eslint-plugin": "^8.30.1",
+    "commitizen": "^4.3.1",
+    "commitlint": "^19.8.0",
+    "eslint": "^9.24.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   }
 }

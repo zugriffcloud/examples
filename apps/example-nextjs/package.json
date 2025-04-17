@@ -3,23 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "zugriff:build": "pnpx @cloudflare/next-on-pages && pnpx zugriff -y pack",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "15.1.6",
-    "react": "^19",
-    "react-dom": "^19"
+    "next": "15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.7",
-    "@types/node": "^22",
+    "@cloudflare/next-on-pages": "^1.13.12",
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.0",
     "typescript": "^5",
-    "zugriff": "^1.0.6"
+    "zugriff": "^1.0.8"
   }
 }

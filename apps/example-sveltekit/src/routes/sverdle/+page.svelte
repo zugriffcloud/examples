@@ -1,47 +1,45 @@
 <script lang="ts">
-	import { confetti } from '@neoconfetti/svelte';
 	import { enhance } from '$app/forms';
-	import type { PageData, ActionData } from './$types';
-	import { reduced_motion } from './reduced-motion';
+	import { confetti } from '@neoconfetti/svelte';
+	import type { ActionData, PageData } from './$types';
+	import { MediaQuery } from 'svelte/reactivity';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+		form: ActionData;
+	}
+	let { data, form = $bindable() }: Props = $props();
 
-	export let form: ActionData;
+	/** Whether the user prefers reduced motion */
+	const reducedMotion = new MediaQuery('(prefers-reduced-motion: reduce)');
 
 	/** Whether or not the user has won */
-	$: won = data.answers.at(-1) === 'xxxxx';
+	let won = $derived(data.answers.at(-1) === 'xxxxx');
 
 	/** The index of the current guess */
-	$: i = won ? -1 : data.answers.length;
+	let i = $derived(won ? -1 : data.answers.length);
 
 	/** The current guess */
-	$: currentGuess = data.guesses[i] || '';
+	let currentGuess = $derived(data.guesses[i] || '');
 
 	/** Whether the current guess can be submitted */
-	$: submittable = currentGuess.length === 5;
+	let submittable = $derived(currentGuess.length === 5);
 
-	/**
-	 * A map of classnames for all letters that have been guessed,
-	 * used for styling the keyboard
-	 */
-	let classnames: Record<string, 'exact' | 'close' | 'missing'>;
-
-	/**
-	 * A map of descriptions for all letters that have been guessed,
-	 * used for adding text for assistive technology (e.g. screen readers)
-	 */
-	let description: Record<string, string>;
-
-	$: {
-		classnames = {};
-		description = {};
-
+	const { classnames, description } = $derived.by(() => {
+		/**
+		 * A map of classnames for all letters that have been guessed,
+		 * used for styling the keyboard
+		 */
+		let classnames: Record<string, 'exact' | 'close' | 'missing'> = {};
+		/**
+		 * A map of descriptions for all letters that have been guessed,
+		 * used for adding text for assistive technology (e.g. screen readers)
+		 */
+		let description: Record<string, string> = {};
 		data.answers.forEach((answer, i) => {
 			const guess = data.guesses[i];
-
 			for (let i = 0; i < 5; i += 1) {
 				const letter = guess[i];
-
 				if (answer[i] === 'x') {
 					classnames[letter] = 'exact';
 					description[letter] = 'correct';
@@ -51,13 +49,15 @@
 				}
 			}
 		});
-	}
+		return { classnames, description };
+	});
 
 	/**
 	 * Modify the game state without making a trip to the server,
 	 * if client-side JavaScript is enabled
 	 */
 	function update(event: MouseEvent) {
+		event.preventDefault();
 		const key = (event.target as HTMLButtonElement).getAttribute(
 			'data-key'
 		);
@@ -81,11 +81,11 @@
 
 		document
 			.querySelector(`[data-key="${event.key}" i]`)
-			?.dispatchEvent(new MouseEvent('click', { cancelable: true }));
+			?.dispatchEvent(new MouseEvent('click', { cancelable: true, bubbles: true }));
 	}
 </script>
 
-<svelte:window on:keydown={keydown} />
+<svelte:window onkeydown={keydown} />
 
 <svelte:head>
 	<title>Sverdle</title>
@@ -95,7 +95,7 @@
 <h1 class="visually-hidden">Sverdle</h1>
 
 <form
-	method="POST"
+	method="post"
 	action="?/enter"
 	use:enhance={() => {
 		// prevent default callback from resetting the form
@@ -152,7 +152,7 @@
 				<button data-key="enter" class:selected={submittable} disabled={!submittable}>enter</button>
 
 				<button
-					on:click|preventDefault={update}
+					onclick={update}
 					data-key="backspace"
 					formaction="?/update"
 					name="key"
@@ -161,11 +161,11 @@
 					back
 				</button>
 
-				{#each ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'] as row}
+				{#each ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'] as row (row)}
 					<div class="row">
-						{#each row as letter}
+						{#each row as letter, index (index)}
 							<button
-								on:click|preventDefault={update}
+								onclick={update}
 								data-key={letter}
 								class={classnames[letter]}
 								disabled={submittable}
@@ -188,7 +188,7 @@
 	<div
 		style="position: absolute; left: 50%; top: 30%"
 		use:confetti={{
-			particleCount: $reduced_motion ? 0 : undefined,
+			particleCount: reducedMotion.current ? 0 : undefined,
 			force: 0.7,
 			stageWidth: window.innerWidth,
 			stageHeight: window.innerHeight,
