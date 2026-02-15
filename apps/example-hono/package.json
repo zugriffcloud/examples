@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "pnpx zugriff preview --pack --watch",
+    "build": "pnpx zugriff -y pack"
+  },
+  "type": "module",
+  "dependencies": {
+    "hono": "^4.7.7"
+  },
+  "devDependencies": {
+    "zugriff": "^1.0.9"
+  }
+}

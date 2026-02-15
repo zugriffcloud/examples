@@ -1,0 +1,7 @@
+packages:
+  - 'apps/**'
+
+auto-install-peers: true
+onlyBuiltDependencies:
+  - esbuild
+  - zugriff
