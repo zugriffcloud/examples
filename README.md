@@ -24,4 +24,4 @@ Find examples of applications deployed with zugriff in the `apps` directory. Ple
 | Static       | [./apps/example-static/](./apps/example-static/)             |  --                       |
 | SvelteKit    | [./apps/example-sveltekit/](./apps/example-sveltekit/)       | https://kit.svelte.dev    |
 
-All examples can be viewed at https://examples.zugriff.app.
+All examples can be viewed at https://examples.zugriff.eu.
