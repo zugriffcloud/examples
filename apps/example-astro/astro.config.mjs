@@ -1,6 +1,6 @@
+import adapter from '@zugriff/adapter-astro';
 // @ts-check
 import { defineConfig } from 'astro/config';
-import adapter from '@zugriff/adapter-astro';
 
 // https://astro.build/config
 export default defineConfig({

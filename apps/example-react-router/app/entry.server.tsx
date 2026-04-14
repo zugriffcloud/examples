@@ -1,1 +1,1 @@
-export { default } from "@zugriff/preset-react-router/entry.server.tsx";
+export { default } from '@zugriff/preset-react-router/entry.server.tsx';

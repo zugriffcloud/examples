@@ -2,6 +2,9 @@
   "name": "example-astro",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,9 +12,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.18.0"
+    "astro": "^6.1.5"
   },
   "devDependencies": {
-    "@zugriff/adapter-astro": "^1.1.0"
+    "@zugriff/adapter-astro": "^1.1.1"
   }
 }
